@@ -1,7 +1,6 @@
 package com.lille1.hvalette.gestionparclille1
 
 import android.arch.persistence.room.*
-import io.reactivex.Flowable
 
 @Dao
 interface ProblemeDao {
@@ -11,5 +10,8 @@ interface ProblemeDao {
 
     @Insert
     fun insert(probleme: Probleme)
+
+    @Delete
+    fun delete(probleme: Probleme)
 
 }

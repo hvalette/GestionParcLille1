@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".AddProblemeActivity">
 
-    <EditText
+    <Spinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="number"
@@ -19,7 +19,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
+            android:inputType="textLongMessage"
             android:ems="10"
             android:id="@+id/description"
             android:hint="Description" android:layout_marginTop="8dp"

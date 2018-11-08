@@ -11,6 +11,6 @@ class GestionParcLille1App() : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        GestionParcLille1App.database = Room.databaseBuilder(this, GestionParcLille1Database::class.java, "problemes.db").build()
+        GestionParcLille1App.database = Room.databaseBuilder(this, GestionParcLille1Database::class.java, "problemes.db").allowMainThreadQueries().build()
     }
 }

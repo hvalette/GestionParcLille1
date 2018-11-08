@@ -3,6 +3,7 @@ package com.lille1.hvalette.gestionparclille1.ui.home
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -37,16 +38,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //val myDataset = GestionParcLille1App.database.problemeDao().getAll()
-        val myDataset = ArrayList<Probleme>()
-        myDataset.add(Probleme(1,0.0,0.0,"Bonjour"))
-        myDataset.add(Probleme(2,0.0,0.0,"Coucou"))
-        myDataset.add(Probleme(1,0.0,0.0,"Henri"))
-        myDataset.add(Probleme(4,0.0,0.0,"Claire"))
-        myDataset.add(Probleme(6,0.0,0.0,"Jambon"))
 
+        val myDataset = GestionParcLille1App.database.problemeDao().getAll()
         viewManager = LinearLayoutManager(this.context)
-        viewAdapter = GestionAdapter(myDataset)
+        viewAdapter = GestionAdapter(myDataset, this.context)
 
         recyclerView = problemes_recycler_view
         recyclerView.setHasFixedSize(true)
