@@ -12,6 +12,7 @@ import android.support.v4.app.ActivityCompat
 import android.util.Log
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_probleme.*
 
 class AddProblemeActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class AddProblemeActivity : AppCompatActivity() {
         }else{
             val myLocation = locationManager?.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER)
             latitude.setText(myLocation?.latitude.toString())
-            latitude.setText(myLocation?.longitude.toString())
+            longitude.setText(myLocation?.longitude.toString())
             locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0L, 0f, locationListener);
             locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0L, 0f, locationListener);
         }
@@ -40,7 +41,8 @@ class AddProblemeActivity : AppCompatActivity() {
         type.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, myStrings)
         var dao = GestionParcLille1App.database.problemeDao()
         submit.setOnClickListener{
-            dao.insert(Probleme(type.selectedItemPosition, latitude.text.toString().toDouble(), longitude.text.toString().toDouble(), description.text.toString()))
+            val probleme = Probleme(type.selectedItemPosition, latitude.text.toString().toDouble(), longitude.text.toString().toDouble(), description.text.toString())
+            dao.insert(probleme)
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
         }

@@ -1,13 +1,14 @@
 package com.lille1.hvalette.gestionparclille1
 
 import android.content.Context
-import android.location.Address
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.probleme_view.view.*
 import android.location.Geocoder
+import android.widget.Toast
 import java.util.*
 
 
@@ -34,24 +35,18 @@ class GestionAdapter(private val myDataset: List<Probleme>, private val context 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        val addresses: List<Address>
-        val geocoder = Geocoder(context, Locale.getDefault())
 
-        addresses = geocoder.getFromLocation(
-            myDataset[position].lat,
-            myDataset[position].long,
-            1
-        )
+        val geocoder = Geocoder(this.context, Locale.getDefault())
 
-        if(addresses != null && addresses.isNotEmpty()) {
-            holder.listView.latitude.text = addresses[0].getAddressLine(0)
-        }else {
-            holder.listView.latitude.text = myDataset[position].lat.toString()
-            holder.listView.longitude.text = myDataset[position].long.toString()
-        }
+        val addresses = geocoder.getFromLocation(myDataset[position].latitude, myDataset[position].longitude, 1)
+
+        holder.listView.latitude.text = addresses.get(0).getAddressLine(0)
+        //holder.listView.latitude.text = myDataset[position].latitude.toString()
+        //holder.listView.longitude.text = myDataset[position].longitude.toString()
+
 
         holder.listView.item_id.text = myDataset[position].id.toString()
-        holder.listView.longitude.text = myDataset[position].long.toString()
+        holder.listView.longitude.text = myDataset[position].longitude.toString()
         holder.listView.description.text = myDataset[position].description
         when (myDataset[position].type) {
             0 -> {
@@ -66,13 +61,21 @@ class GestionAdapter(private val myDataset: List<Probleme>, private val context 
                 holder.listView.probleme_image.setImageResource(R.drawable.garbage)
                 holder.listView.type.text = "Détritus à ramasser"
             }
-            4 -> {
+            3 -> {
                 holder.listView.probleme_image.setImageResource(R.drawable.bush)
                 holder.listView.type.text = "Haie à tailler"
             }
-            5 -> {
+            4 -> {
                 holder.listView.probleme_image.setImageResource(R.drawable.grass)
                 holder.listView.type.text = "Mauvaises herbes à enlever"
+            }
+        }
+        holder.listView.setOnClickListener {
+            val intent = Intent(this.context, DetailActivity::class.java)
+            intent.putExtra("id", myDataset[position].id)
+            Toast.makeText(this.context, "" + myDataset[position].id, Toast.LENGTH_SHORT)
+            if(this.context != null) {
+                this.context.startActivity(intent)
             }
         }
     }

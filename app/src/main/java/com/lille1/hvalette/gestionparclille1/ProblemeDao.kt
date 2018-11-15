@@ -8,6 +8,9 @@ interface ProblemeDao {
     @Query("SELECT * from problemes")
     fun getAll(): List<Probleme>
 
+    @Query("SELECT * FROM problemes WHERE id = :id ")
+    fun getById(id:Int): Probleme
+
     @Insert
     fun insert(probleme: Probleme)
 

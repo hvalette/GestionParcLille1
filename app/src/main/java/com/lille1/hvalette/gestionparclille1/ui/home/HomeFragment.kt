@@ -3,7 +3,6 @@ package com.lille1.hvalette.gestionparclille1.ui.home
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -42,7 +41,6 @@ class HomeFragment : Fragment() {
         val myDataset = GestionParcLille1App.database.problemeDao().getAll()
         viewManager = LinearLayoutManager(this.context)
         viewAdapter = GestionAdapter(myDataset, this.context)
-
         recyclerView = problemes_recycler_view
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = viewManager

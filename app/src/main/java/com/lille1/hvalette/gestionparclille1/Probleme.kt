@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "problemes")
-data class Probleme(var type: Int, var lat: Double, var long: Double, var description: String) {
+data class Probleme(var type: Int, var latitude: Double, var longitude: Double, var description: String) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
