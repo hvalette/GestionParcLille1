@@ -17,4 +17,7 @@ interface ProblemeDao {
     @Delete
     fun delete(probleme: Probleme)
 
+    @Query("DELETE FROM problemes")
+    fun deleteAll()
+
 }

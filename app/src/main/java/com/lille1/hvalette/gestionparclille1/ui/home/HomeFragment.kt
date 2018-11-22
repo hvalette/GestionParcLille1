@@ -6,11 +6,10 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.lille1.hvalette.gestionparclille1.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import android.view.*
+
 
 class HomeFragment : Fragment() {
 
@@ -50,6 +49,40 @@ class HomeFragment : Fragment() {
             val intent = Intent(context, AddProblemeActivity::class.java)
             startActivity(intent)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        when (item.itemId) {
+            R.id.delete -> {
+                GestionParcLille1App.database.problemeDao().deleteAll()
+                val intent = Intent(this.context, HomeActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.init -> {
+                GestionParcLille1App.database.problemeDao().insert(Probleme(0,50.6357258,3.0490061,"Une branche gêne la route."))
+                GestionParcLille1App.database.problemeDao().insert(Probleme(1,50.6376511,3.1499041,"Un arbre à poussé ici cette nuit."))
+                GestionParcLille1App.database.problemeDao().insert(Probleme(2,48.8583736,2.2922926,"Il faut vider les poubelles avant que les touristes n'arrivent."))
+                GestionParcLille1App.database.problemeDao().insert(Probleme(3,48.8030847,2.1252058,"Il faut tailler les haies du jardin !"))
+                GestionParcLille1App.database.problemeDao().insert(Probleme(4,47.6161296,1.5150293,"Au plus vite, cette plante se propage en quelques jours"))
+                val intent = Intent(this.context, HomeActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+        return false
     }
 
 }
