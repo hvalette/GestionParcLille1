@@ -1,7 +1,11 @@
-package com.lille1.hvalette.gestionparclille1
+package com.lille1.hvalette.gestionparclille1.dao
 
 import android.arch.persistence.room.*
+import com.lille1.hvalette.gestionparclille1.entity.Probleme
 
+/**
+ * Permet d'effectuer des requetes à la base de donnée
+ */
 @Dao
 interface ProblemeDao {
 

@@ -1,4 +1,4 @@
-package com.lille1.hvalette.gestionparclille1
+package com.lille1.hvalette.gestionparclille1.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.probleme_view.view.*
 import android.location.Geocoder
 import android.widget.Toast
+import com.lille1.hvalette.gestionparclille1.R
+import com.lille1.hvalette.gestionparclille1.activity.DetailActivity
+import com.lille1.hvalette.gestionparclille1.entity.Probleme
 import java.util.*
 
 
@@ -24,7 +27,7 @@ class GestionAdapter(private val myDataset: List<Probleme>, private val context 
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): GestionAdapter.MyViewHolder {
+                                    viewType: Int): MyViewHolder {
         // create a new view
         val listView = LayoutInflater.from(parent.context)
             .inflate(R.layout.probleme_view, parent, false)
@@ -33,21 +36,10 @@ class GestionAdapter(private val myDataset: List<Probleme>, private val context 
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
 
-        val geocoder = Geocoder(this.context, Locale.getDefault())
-
-        val addresses = geocoder.getFromLocation(myDataset[position].latitude, myDataset[position].longitude, 1)
-
-        holder.listView.latitude.text = addresses.get(0).getAddressLine(0)
-        //holder.listView.latitude.text = myDataset[position].latitude.toString()
-        //holder.listView.longitude.text = myDataset[position].longitude.toString()
+        holder.listView.latitude.text = myDataset[position].adresse
 
 
-        holder.listView.item_id.text = myDataset[position].id.toString()
-        holder.listView.longitude.text = myDataset[position].longitude.toString()
-        holder.listView.description.text = myDataset[position].description
         when (myDataset[position].type) {
             0 -> {
                 holder.listView.probleme_image.setImageResource(R.drawable.tree)

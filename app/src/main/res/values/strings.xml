@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">GestionParcLille1</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ajouter_un_probleme">Ajouter un problème</string>
+    <string name="adresse">Adresse</string>
+    <string name="ajouter_probleme">Ajouter Probleme</string>
+    <string name="type">Type</string>
+    <string name="supprimer">Supprimer</string>
+    <string name="_115_rue_de_l_exemple_lille_france">115 rue de l\'exemple, Lille, France</string>
+    <string name="description">Description</string>
 </resources>

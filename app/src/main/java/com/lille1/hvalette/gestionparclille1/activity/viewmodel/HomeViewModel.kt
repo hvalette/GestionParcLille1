@@ -1,4 +1,4 @@
-package com.lille1.hvalette.gestionparclille1.ui.home
+package com.lille1.hvalette.gestionparclille1.activity.viewmodel
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -10,6 +10,5 @@ class HomeViewModel : ViewModel() {
         get() = _data
 
     init {
-        _data.value = "Hello, Jetpack!"
     }
 }

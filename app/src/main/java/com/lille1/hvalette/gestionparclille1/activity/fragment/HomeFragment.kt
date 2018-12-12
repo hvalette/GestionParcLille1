@@ -1,7 +1,8 @@
-package com.lille1.hvalette.gestionparclille1.ui.home
+package com.lille1.hvalette.gestionparclille1.activity.fragment
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,12 @@ import android.support.v7.widget.RecyclerView
 import com.lille1.hvalette.gestionparclille1.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import android.view.*
+import com.lille1.hvalette.gestionparclille1.activity.AddProblemeActivity
+import com.lille1.hvalette.gestionparclille1.activity.HomeActivity
+import com.lille1.hvalette.gestionparclille1.activity.viewmodel.HomeViewModel
+import com.lille1.hvalette.gestionparclille1.adapter.GestionAdapter
+import com.lille1.hvalette.gestionparclille1.entity.Probleme
+import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -32,7 +39,6 @@ class HomeFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,11 +77,39 @@ class HomeFragment : Fragment() {
                 return true
             }
             R.id.init -> {
-                GestionParcLille1App.database.problemeDao().insert(Probleme(0,50.6357258,3.0490061,"Une branche gêne la route."))
-                GestionParcLille1App.database.problemeDao().insert(Probleme(1,50.6376511,3.1499041,"Un arbre à poussé ici cette nuit."))
-                GestionParcLille1App.database.problemeDao().insert(Probleme(2,48.8583736,2.2922926,"Il faut vider les poubelles avant que les touristes n'arrivent."))
-                GestionParcLille1App.database.problemeDao().insert(Probleme(3,48.8030847,2.1252058,"Il faut tailler les haies du jardin !"))
-                GestionParcLille1App.database.problemeDao().insert(Probleme(4,47.6161296,1.5150293,"Au plus vite, cette plante se propage en quelques jours"))
+                val centerLat = 50.609213
+                val centerLong = 3.141944
+                for (i in 0..10){
+                    var randomLat = Random().nextInt(5000)
+                    var randomLong = Random().nextInt(5000)
+                    var lat = centerLat*1000000
+                    var long = centerLong*1000000
+                    if(Random().nextInt(1) == 1){
+                        lat += randomLat
+                    }else{
+                        lat -= randomLat
+                    }
+                    if(Random().nextInt(1) == 1){
+                        long += randomLong
+                    }else{
+                        long -= randomLong
+                    }
+                    lat /= 1000000
+                    long /= 1000000
+
+                    var geocoder = Geocoder(this.context)
+                    var adresse = geocoder.getFromLocation(lat, long,1)[0].getAddressLine(0);
+
+                    GestionParcLille1App.database.problemeDao().insert(
+                    Probleme(
+                        Random().nextInt(5),
+                        lat,
+                        long,
+                        adresse,
+                        "Description à écrire"
+                    )
+                )
+                }
                 val intent = Intent(this.context, HomeActivity::class.java)
                 startActivity(intent)
                 return true
